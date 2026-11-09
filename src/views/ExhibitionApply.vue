@@ -1,0 +1,93 @@
+<template>
+  <div class="page">
+    <button class="nav-back" type="button" @click="$router.back()">← 返回</button>
+    <h1 class="page-title">布展申请</h1>
+    <p class="page-sub">物业单级审批 · 固定表单</p>
+    <div class="card">
+      <div class="form-item">
+        <label class="form-label">申请人</label>
+        <input class="form-input" :value="identity.name" disabled />
+      </div>
+      <div class="form-item">
+        <label class="form-label">联系电话<span class="req">*</span></label>
+        <input v-model="form.phone" class="form-input" placeholder="请输入手机号" />
+      </div>
+      <div class="form-item">
+        <label class="form-label">布展地点<span class="req">*</span></label>
+        <input v-model="form.place" class="form-input" placeholder="楼宇 / 区域" />
+      </div>
+      <div class="form-item">
+        <label class="form-label">开始时间<span class="req">*</span></label>
+        <input v-model="form.startAt" class="form-input" type="datetime-local" />
+      </div>
+      <div class="form-item">
+        <label class="form-label">结束时间<span class="req">*</span></label>
+        <input v-model="form.endAt" class="form-input" type="datetime-local" />
+      </div>
+      <div class="form-item">
+        <label class="form-label">布展内容说明<span class="req">*</span></label>
+        <textarea v-model="form.content" class="form-textarea" placeholder="用途与内容" />
+      </div>
+      <div class="form-item">
+        <label class="form-label">附件资料</label>
+        <div class="upload-box" :class="{ 'has-file': form.attachment }" @click="pickFile">
+          {{ form.attachment || '点击模拟上传图片 / 资料（原型占位）' }}
+        </div>
+      </div>
+      <div class="form-item">
+        <label class="form-label">备注</label>
+        <textarea v-model="form.remark" class="form-textarea" placeholder="选填" />
+      </div>
+      <button class="btn btn-block" type="button" :disabled="submitting" @click="submit">提交申请</button>
+    </div>
+    <div v-if="toast" class="toast">{{ toast }}</div>
+  </div>
+</template>
+
+<script setup>
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { addExhibition, getIdentity } from '../store/demo'
+
+const router = useRouter()
+const identity = getIdentity()
+const submitting = ref(false)
+const toast = ref('')
+const form = reactive({
+  phone: identity.phone.replace(/\*/g, '8'),
+  place: '',
+  startAt: '',
+  endAt: '',
+  content: '',
+  attachment: '',
+  remark: '',
+})
+
+function pickFile() {
+  form.attachment = form.attachment ? '' : '布展资料-演示.jpg'
+}
+
+function fmt(v) {
+  if (!v) return ''
+  return v.replace('T', ' ')
+}
+
+function submit() {
+  if (!form.phone || !form.place || !form.startAt || !form.endAt || !form.content) {
+    toast.value = '请完善必填项'
+    setTimeout(() => (toast.value = ''), 1600)
+    return
+  }
+  submitting.value = true
+  const item = addExhibition({
+    place: form.place,
+    startAt: fmt(form.startAt),
+    endAt: fmt(form.endAt),
+    content: form.content,
+    phone: form.phone,
+    remark: form.remark,
+    attachment: form.attachment,
+  })
+  router.replace(`/exhibition/${item.id}`)
+}
+</script>
