@@ -1,6 +1,6 @@
 <template>
   <div class="page" v-if="item">
-    <button class="nav-back" type="button" @click="$router.push('/records')">← 我的记录</button>
+    <button class="nav-back" type="button" @click="$router.push('/records')"><AppIcon :icon="ArrowLeft" :size="18" /> 我的记录</button>
     <div class="head">
       <h1 class="page-title">报修进度</h1>
       <StatusTag :status="item.status" />
@@ -28,6 +28,8 @@
 </template>
 
 <script setup>
+import AppIcon from '../components/AppIcon.vue'
+import { ArrowLeft } from '../icons'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import StatusTag from '../components/StatusTag.vue'

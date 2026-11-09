@@ -3,10 +3,16 @@
     <div class="modal-sheet">
       <div class="modal-head">
         <h3>蓉政通会议预定引导</h3>
-        <button class="btn btn-sm btn-ghost" type="button" @click="close">关闭</button>
+        <button class="btn btn-sm btn-ghost" type="button" @click="close">
+          <AppIcon :icon="X" :size="16" />
+          关闭
+        </button>
       </div>
       <div class="guide">
-        <div class="guide-banner">演示图文 · 非官方页面</div>
+        <div class="guide-banner">
+          <AppIcon :icon="CalendarDays" :size="18" />
+          <span>演示图文 · 非官方页面</span>
+        </div>
         <h4>如何预定会议室</h4>
         <ol>
           <li>打开「蓉政通」应用并登录机关账号。</li>
@@ -28,22 +34,27 @@
 </template>
 
 <script setup>
-const props = defineProps({ open: Boolean })
+import AppIcon from './AppIcon.vue'
+import { CalendarDays, X } from '../icons'
+defineProps({ open: Boolean })
 const emit = defineEmits(['close'])
 function close() { emit('close') }
 </script>
 
 <style scoped>
 .guide-banner {
-  background: var(--primary-light);
-  color: var(--primary);
-  border-radius: 8px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.guide h4 { font-size: 15px; margin: 12px 0 8px; }
-.guide ol, .guide ul { padding-left: 18px; color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
-.tip { margin: 12px 0 16px; font-size: 12px; color: var(--text-muted); }
+.guide h4 { font-size: var(--fs-md); margin: 12px 0 8px; }
+.guide ol, .guide ul { padding-left: 18px; color: var(--color-text-secondary); font-size: var(--fs-md); line-height: 1.7; }
+.tip { margin: 12px 0 16px; font-size: var(--fs-xs); color: var(--color-text-tertiary); }
 </style>

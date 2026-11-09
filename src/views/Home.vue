@@ -3,7 +3,7 @@
     <header class="brand-banner">
       <div class="brand-row">
         <div class="logo" aria-hidden="true">
-          <span>勤</span>
+          <AppIcon :icon="BadgeCheck" :size="22" :stroke-width="2.4" />
         </div>
         <div class="brand-text">
           <h1>金小勤</h1>
@@ -21,10 +21,10 @@
       <section class="card">
         <div class="card-title">业务申请</div>
         <div class="grid-services">
-          <div v-for="s in logistics" :key="s.to" class="service-item" @click="go(s.to)">
-            <div class="service-icon" :style="{ background: s.color }">{{ s.icon }}</div>
+          <button v-for="s in logistics" :key="s.to" type="button" class="service-item" @click="go(s.to)">
+            <IconTile :icon="s.icon" :color="s.color" />
             <div class="service-name">{{ s.name }}</div>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -32,10 +32,10 @@
       <section class="card">
         <div class="card-title">问卷与评价</div>
         <div class="grid-services">
-          <div v-for="s in surveyBlock" :key="s.to" class="service-item" @click="go(s.to)">
-            <div class="service-icon" :style="{ background: s.color }">{{ s.icon }}</div>
+          <button v-for="s in surveyBlock" :key="s.to" type="button" class="service-item" @click="go(s.to)">
+            <IconTile :icon="s.icon" :color="s.color" />
             <div class="service-name">{{ s.name }}</div>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -43,10 +43,10 @@
       <section class="card">
         <div class="card-title">蓉政通说明</div>
         <div class="grid-services">
-          <div class="service-item" @click="meetingOpen = true">
-            <div class="service-icon" style="background:#8b6cef">会</div>
+          <button type="button" class="service-item" @click="meetingOpen = true">
+            <IconTile :icon="CalendarDays" color="var(--tile-purple)" />
             <div class="service-name">会议预定引导</div>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -54,17 +54,19 @@
       <section class="card">
         <div class="card-title">外链入口</div>
         <div class="grid-services">
-          <div v-for="s in life" :key="s.to" class="service-item" @click="go(s.to)">
-            <div class="service-icon" :style="{ background: s.color }">{{ s.icon }}</div>
+          <button v-for="s in life" :key="s.to" type="button" class="service-item" @click="go(s.to)">
+            <IconTile :icon="s.icon" :color="s.color" />
             <div class="service-name">{{ s.name }}</div>
-          </div>
+          </button>
         </div>
       </section>
 
       <section class="card">
         <div class="card-head">
           <div class="card-title" style="margin:0">我的事项</div>
-          <router-link class="link-more" to="/records">全部</router-link>
+          <router-link class="link-more" to="/records">
+            全部 <AppIcon :icon="ChevronRight" :size="16" />
+          </router-link>
         </div>
         <div v-if="recent.length === 0" class="empty">暂无事项</div>
         <div v-else>
@@ -88,6 +90,12 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import MeetingModal from '../components/MeetingModal.vue'
 import StatusTag from '../components/StatusTag.vue'
+import IconTile from '../components/IconTile.vue'
+import AppIcon from '../components/AppIcon.vue'
+import {
+  BadgeCheck, Presentation, Wrench, MessageSquareText, ClipboardList, Star,
+  CalendarDays, UtensilsCrossed, UserRoundPlus, ConciergeBell, ChevronRight,
+} from '../icons'
 import { recentSummary } from '../store/demo'
 
 const router = useRouter()
@@ -95,18 +103,18 @@ const meetingOpen = ref(false)
 const recent = ref([])
 
 const logistics = [
-  { name: '布展申请', to: '/exhibition/apply', icon: '展', color: '#2b7de9' },
-  { name: '报修服务', to: '/repair', icon: '修', color: '#ff8a3d' },
-  { name: '意见反馈', to: '/feedback/apply', icon: '意', color: '#2bb673' },
+  { name: '布展申请', to: '/exhibition/apply', icon: Presentation, color: 'var(--tile-blue)' },
+  { name: '报修服务', to: '/repair', icon: Wrench, color: 'var(--tile-orange)' },
+  { name: '意见反馈', to: '/feedback/apply', icon: MessageSquareText, color: 'var(--tile-green)' },
 ]
 const surveyBlock = [
-  { name: '满意度调查', to: '/survey', icon: '卷', color: '#2ec4b6' },
-  { name: '办结评价', to: '/records', icon: '评', color: '#f06292' },
+  { name: '满意度调查', to: '/survey', icon: ClipboardList, color: 'var(--tile-cyan)' },
+  { name: '办结评价', to: '/records', icon: Star, color: 'var(--tile-magenta)' },
 ]
 const life = [
-  { name: '就餐服务', to: '/link/dining', icon: '餐', color: '#f0a020' },
-  { name: '访客登记', to: '/link/visitor', icon: '访', color: '#3b8ef0' },
-  { name: '公务餐', to: '/link/official-meal', icon: '公', color: '#8b6cef' },
+  { name: '就餐服务', to: '/link/dining', icon: UtensilsCrossed, color: 'var(--tile-gold)' },
+  { name: '访客登记', to: '/link/visitor', icon: UserRoundPlus, color: 'var(--tile-geekblue)' },
+  { name: '公务餐', to: '/link/official-meal', icon: ConciergeBell, color: 'var(--tile-purple)' },
 ]
 
 function go(path) { router.push(path) }
@@ -114,11 +122,11 @@ onMounted(() => { recent.value = recentSummary(3) })
 </script>
 
 <style scoped>
-.home { padding-bottom: 8px; }
+.home { padding-bottom: var(--space-2); }
 .brand-banner {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(165deg, #5eb0ff 0%, #3b8ef0 48%, #2b7de9 100%);
+  background: linear-gradient(165deg, var(--color-sky-1) 0%, var(--color-sky-2) 48%, var(--color-sky-3) 100%);
   color: #fff;
   padding: 18px 16px 28px;
   min-height: 148px;
@@ -134,28 +142,18 @@ onMounted(() => { recent.value = recentSummary(3) })
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffe082, #f0a020 55%, #2b7de9 56%, #1a5fb4);
+  background: radial-gradient(circle at 30% 30%, #FFE58F, #FAAD14 52%, #1677FF 54%, #0958D9);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: #fff;
   flex-shrink: 0;
 }
-.logo span {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.95);
-  color: #1a5fb4;
-  font-size: 14px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.logo :deep(svg) { color: #fff; stroke: #fff; }
 .brand-text h1 {
-  font-size: 22px;
-  font-weight: 800;
+  font-size: var(--fs-xxl);
+  font-weight: var(--fw-bold);
   letter-spacing: 1px;
   text-shadow: 0 1px 2px rgba(0,0,0,0.12);
 }
@@ -164,7 +162,7 @@ onMounted(() => { recent.value = recentSummary(3) })
   align-items: center;
   gap: 8px;
   margin-top: 6px;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   opacity: 0.95;
 }
 .sub-line span {
@@ -224,5 +222,11 @@ onMounted(() => { recent.value = recentSummary(3) })
   justify-content: space-between;
   margin-bottom: 4px;
 }
-.link-more { font-size: 13px; color: var(--primary); }
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--fs-sm);
+  color: var(--color-primary);
+}
 </style>

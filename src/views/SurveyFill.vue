@@ -1,6 +1,6 @@
 <template>
   <div class="page" v-if="survey">
-    <button class="nav-back" type="button" @click="$router.back()">← 返回</button>
+    <button class="nav-back" type="button" @click="$router.back()"><AppIcon :icon="ArrowLeft" :size="18" /> 返回</button>
     <h1 class="page-title">{{ survey.title }}</h1>
     <p class="page-sub">共 {{ survey.questions.length }} 题 · 限提交一次</p>
 
@@ -50,6 +50,8 @@
 </template>
 
 <script setup>
+import AppIcon from '../components/AppIcon.vue'
+import { ArrowLeft } from '../icons'
 import { computed, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSurvey, getSurveySubmission, submitSurvey } from '../store/demo'

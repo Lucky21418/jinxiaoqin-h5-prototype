@@ -23,6 +23,7 @@
         class="list-item"
         @click="$router.push(item.route)"
       >
+        <IconTile :icon="kindIcon(item.kind)" :color="kindColor(item.kind)" :size="40" :icon-size="20" :radius="10" />
         <div class="li-body">
           <div class="li-title">{{ item.title }}</div>
           <div class="li-meta">{{ item.time }} · {{ item.id }}</div>
@@ -36,7 +37,9 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import StatusTag from '../components/StatusTag.vue'
+import IconTile from '../components/IconTile.vue'
 import { listAllRecords } from '../store/demo'
+import { Presentation, Wrench, MessageSquareText, ClipboardList } from '../icons'
 
 const filter = ref('all')
 const rows = ref([])
@@ -54,6 +57,19 @@ const filtered = computed(() => {
   if (filter.value === 'all') return rows.value
   return rows.value.filter((x) => x.kind === filter.value)
 })
+
+function kindIcon(kind) {
+  return ({ exhibition: Presentation, repair: Wrench, feedback: MessageSquareText, survey: ClipboardList })[kind] || FileFallback()
+}
+function FileFallback() { return ClipboardList }
+function kindColor(kind) {
+  return ({
+    exhibition: 'var(--tile-blue)',
+    repair: 'var(--tile-orange)',
+    feedback: 'var(--tile-green)',
+    survey: 'var(--tile-cyan)',
+  })[kind] || 'var(--tile-blue)'
+}
 </script>
 
 <style scoped>

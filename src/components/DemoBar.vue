@@ -4,7 +4,10 @@
       <strong>演示身份</strong>
       <span>{{ identity.name }} · {{ identity.role }}</span>
     </div>
-    <button class="btn btn-sm" type="button" @click="onReset">重置数据</button>
+    <button class="btn btn-sm" type="button" @click="onReset">
+      <AppIcon :icon="RotateCcw" :size="14" />
+      重置数据
+    </button>
   </div>
 </template>
 
@@ -12,6 +15,8 @@
 import { reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getIdentity, resetDemo } from '../store/demo'
+import AppIcon from './AppIcon.vue'
+import { RotateCcw } from '../icons'
 
 const router = useRouter()
 const identity = reactive({ ...getIdentity() })
@@ -34,7 +39,7 @@ function onReset() {
   justify-content: space-between;
   gap: 8px;
   padding: 6px 12px;
-  background: rgba(26, 95, 180, 0.92);
+  background: rgba(9, 88, 217, 0.94);
   color: #fff;
   font-size: 11px;
   z-index: 20;
