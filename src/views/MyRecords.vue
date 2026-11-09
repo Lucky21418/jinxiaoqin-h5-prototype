@@ -1,7 +1,9 @@
 <template>
-  <div class="page">
-    <h1 class="page-title">我的记录</h1>
-    <p class="page-sub">统一查看本人事项进度与结果</p>
+  <div class="page records">
+    <header class="page-head">
+      <h1>我的记录</h1>
+      <p>统一查看本人事项进度与结果</p>
+    </header>
     <div class="chip-row" style="margin-bottom:12px">
       <button
         v-for="f in filters"
@@ -13,6 +15,7 @@
       >{{ f.label }}</button>
     </div>
     <div class="card">
+      <div class="card-title">事项列表</div>
       <div v-if="filtered.length === 0" class="empty">暂无记录</div>
       <div
         v-for="item in filtered"
@@ -27,7 +30,6 @@
         <StatusTag :status="item.status" />
       </div>
     </div>
-    <button class="btn btn-block btn-ghost" type="button" @click="$router.push('/account')">账号信息</button>
   </div>
 </template>
 
@@ -53,3 +55,8 @@ const filtered = computed(() => {
   return rows.value.filter((x) => x.kind === filter.value)
 })
 </script>
+
+<style scoped>
+.records { padding-top: 0; }
+.page-head { margin: -12px -12px 14px; }
+</style>

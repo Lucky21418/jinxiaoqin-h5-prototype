@@ -1,8 +1,10 @@
 <template>
-  <div class="page">
-    <button class="nav-back" type="button" @click="$router.back()">← 返回</button>
-    <h1 class="page-title">布展申请</h1>
-    <p class="page-sub">物业单级审批 · 固定表单</p>
+  <div class="page apply-page">
+    <header class="page-head">
+      <button class="nav-back back" type="button" @click="$router.back()">← 返回</button>
+      <h1>布展申请</h1>
+      <p>物业单级审批 · 固定表单</p>
+    </header>
     <div class="card">
       <div class="form-item">
         <label class="form-label">申请人</label>
@@ -91,3 +93,8 @@ function submit() {
   router.replace(`/exhibition/${item.id}`)
 }
 </script>
+
+<style scoped>
+.apply-page { padding-top: 0; }
+.page-head { margin: -12px -12px 14px; }
+</style>

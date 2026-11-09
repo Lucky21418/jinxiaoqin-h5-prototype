@@ -12,13 +12,12 @@ import SurveyFill from '../views/SurveyFill.vue'
 import MyRecords from '../views/MyRecords.vue'
 import ExternalLink from '../views/ExternalLink.vue'
 import Account from '../views/Account.vue'
-import More from '../views/More.vue'
 
 const routes = [
-  { path: '/', name: 'home', component: Home, meta: { tab: 'service' } },
-  { path: '/more', name: 'more', component: More, meta: { tab: 'more' } },
-  { path: '/records', name: 'records', component: MyRecords, meta: { tab: 'mine' } },
-  { path: '/account', name: 'account', component: Account, meta: { tab: 'mine' } },
+  { path: '/', name: 'home', component: Home, meta: { tab: 'home' } },
+  { path: '/records', name: 'records', component: MyRecords, meta: { tab: 'records' } },
+  { path: '/account', name: 'account', component: Account, meta: { tab: 'account' } },
+  { path: '/more', redirect: '/account' },
   { path: '/exhibition/apply', component: ExhibitionApply, meta: { tab: false } },
   { path: '/exhibition/:id', component: ExhibitionDetail, meta: { tab: false } },
   { path: '/repair', component: RepairSelect, meta: { tab: false } },

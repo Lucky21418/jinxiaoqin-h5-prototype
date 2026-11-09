@@ -4,7 +4,7 @@
       <strong>演示身份</strong>
       <span>{{ identity.name }} · {{ identity.role }}</span>
     </div>
-    <button class="btn btn-sm btn-ghost" type="button" @click="onReset">重置数据</button>
+    <button class="btn btn-sm" type="button" @click="onReset">重置数据</button>
   </div>
 </template>
 
@@ -33,26 +33,27 @@ function onReset() {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px 12px;
-  background: #123a6e;
+  padding: 6px 12px;
+  background: rgba(26, 95, 180, 0.92);
   color: #fff;
-  font-size: 12px;
+  font-size: 11px;
+  z-index: 20;
 }
 .demo-left {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   min-width: 0;
 }
-.demo-left strong { font-size: 12px; opacity: 0.9; }
+.demo-left strong { font-size: 11px; opacity: 0.9; }
 .demo-left span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0.95;
 }
-.demo-bar :deep(.btn-ghost) {
-  background: rgba(255,255,255,0.14);
+.demo-bar .btn {
+  background: rgba(255,255,255,0.18);
   color: #fff;
   flex-shrink: 0;
 }

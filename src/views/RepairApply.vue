@@ -1,8 +1,10 @@
 <template>
-  <div class="page">
-    <button class="nav-back" type="button" @click="$router.back()">← 返回</button>
-    <h1 class="page-title">{{ form.type }}报修</h1>
-    <p class="page-sub">提交后可在「我的记录」查看进度</p>
+  <div class="page apply-page">
+    <header class="page-head">
+      <button class="nav-back back" type="button" @click="$router.back()">← 返回</button>
+      <h1>{{ form.type }}报修</h1>
+      <p>提交后可在「我的记录」查看进度</p>
+    </header>
     <div class="card">
       <div class="form-item">
         <label class="form-label">报修类型</label>
@@ -67,3 +69,8 @@ function submit() {
   router.replace(`/repair/${item.id}`)
 }
 </script>
+
+<style scoped>
+.apply-page { padding-top: 0; }
+.page-head { margin: -12px -12px 14px; }
+</style>

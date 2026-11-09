@@ -1,5 +1,23 @@
-# Vue 3 + Vite
+# 金小勤 · 职工端 H5 可点击原型
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+金牛区机关事务管理局一站式服务平台（拟议）职工端演示。
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 本地运行
+
+```bash
+npm install
+npm run build
+npx vite preview --host 0.0.0.0 --port 5173
+```
+
+打开 http://127.0.0.1:5173/
+
+## 公网演示
+
+https://lucky21418.github.io/jinxiaoqin-h5-prototype/
+
+## 说明
+
+- 仅职工端；演示身份 + localStorage 持久化
+- 外链为占位确认页；会议预定为弹窗引导
+- 管理端不在本期原型范围
